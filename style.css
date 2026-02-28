@@ -1,0 +1,195 @@
+/* --- 1. Global Reset & Theme --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Playpen Sans Thai", cursive;
+}
+
+body {
+    background: radial-gradient(circle at top, #ffffff 0%, #f4f7f9 100%);
+    color: #1a1a1b;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* --- 2. Header Style (แก้เส้นเหลืองแล้ว) --- */
+header {
+    padding: 80px 20px 40px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    /* ไล่เฉดสีตัวอักษร */
+    background: linear-gradient(90deg, #1a1a1b, #4a4a4a);
+    -webkit-background-clip: text; 
+    background-clip: text; /* มาตรฐานกลาง แก้เส้นเหลือง */
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 15px;
+}
+
+header p {
+    color: #65676b;
+    font-size: 1.1rem;
+    opacity: 0.8;
+}
+
+/* --- 3. Grid System (3 คอลัมน์ และ Meta อยู่กึ่งกลาง) --- */
+main {
+    display: grid;
+    /* กำหนดขนาดการ์ดคงที่ 320px จำนวน 3 คอลัมน์ */
+    grid-template-columns: repeat(3, 320px); 
+    gap: 40px;
+    padding: 40px 20px;
+    max-width: 1200px;
+    justify-content: center;
+}
+
+/* บังคับให้ Meta (การ์ดลำดับที่ 4) ขยับมาคอลัมน์ที่ 2 */
+.card:nth-child(4) {
+    grid-column: 2;
+}
+
+/* สำหรับมือถือ: ให้เรียง 1 คอลัมน์ปกติ */
+@media (max-width: 1050px) {
+    main {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    .card:nth-child(4) {
+        grid-column: auto;
+    }
+}
+
+/* --- 4. Card Design (ยกระดับความแพง) --- */
+.card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 40px 30px;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.card img {
+    height: 85px; /* คุมความสูงโลโก้ในการ์ด */
+    width: auto;
+    margin-bottom: 25px;
+    object-fit: contain;
+}
+
+.card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+}
+
+.card p {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    min-height: 50px;
+}
+
+/* --- 5. Styled Button --- */
+.open-btn {
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    padding: 14px 0;
+    font-size: 1rem;
+    font-weight: 600;
+    width: 100%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.open-btn:hover {
+    background: #333;
+    transform: scale(1.02);
+}
+
+/* --- 6. Overlay/Pop-up (Premium Glassmorphism) --- */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(15px); /* พื้นหลังเบลอแบบกระจก */
+    -webkit-backdrop-filter: blur(15px);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+
+/* แสดงผลเมื่อมีคลาส open */
+.overlay.open {
+    display: flex;
+}
+
+.overlay-box {
+    background: #ffffff;
+    padding: 45px;
+    border-radius: 35px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.12);
+    max-width: 550px;
+    width: 92%;
+    text-align: center;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* แก้ปัญหารูป Google ใหญ่ล้นจอ (จากภาพ 917c97) */
+.overlay-box img {
+    max-width: 160px; /* คุมความกว้างรูปในป๊อปอัพ */
+    height: auto;
+    margin-bottom: 25px;
+    object-fit: contain;
+}
+
+#tradingview-container {
+    width: 100%;
+    height: 250px;
+    margin: 20px 0;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #f8f9fa;
+}
+
+#closeBtn {
+    margin-top: 20px;
+    background: #f0f2f5;
+    color: #1c1e21;
+    border: none;
+    padding: 12px 35px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#closeBtn:hover {
+    background: #e4e6eb;
+    transform: scale(1.05);
+}
+
+/* --- 7. Footer Style --- */
+footer {
+    padding: 40px;
+    color: #888;
+    font-size: 0.9rem;
+}
